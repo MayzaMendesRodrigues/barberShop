@@ -9,3 +9,40 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id      String    @id @default(uuid())
+  name    String
+  Booking Booking[]
+}
+
+model BarberShop {
+  id       String    @id @default(uuid())
+  name     String
+  address  String // Corrigido de 'adress' para 'address'
+  imageUrl String
+  Service  Service[]
+  Booking  Booking[]
+}
+
+model Service {
+  id           String     @id @default(uuid()) // Corrigido 'uui()' para 'uuid()'
+  name         String
+  price        Decimal    @db.Decimal(10, 2) // Ajustado para 'Float' para exemplo, ajuste conforme necessário
+  barbershopId String
+  barbershop   BarberShop @relation(fields: [barbershopId], references: [id])
+  description  String
+  Booking      Booking[]
+}
+
+model Booking {
+  id           String     @id @default(uuid()) // Corrigido para incluir '@default(uuid())'
+  userId       String
+  user         User       @relation(fields: [userId], references: [id]) // Corrigido 'User' para 'user' e 'UserId' para 'userId'
+  serviceId    String
+  service      Service    @relation(fields: [serviceId], references: [id])
+  barberShopId String
+  barbershop   BarberShop @relation(fields: [barberShopId], references: [id])
+  date         DateTime
+  status       String
+}
