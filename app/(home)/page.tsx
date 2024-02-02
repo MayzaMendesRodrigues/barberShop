@@ -37,6 +37,19 @@ async function Home() {
               ))}
             </div>
 
+            <div className="px-5 mt-6">
+            <h2 className= " px-5 text-xs uppercase text-gray-400 font-bold mb-3">Populares</h2>
+            </div>
+
+            <div className='flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden mb-[4.5rem]'>
+              {barbershops.map((barberShop) => (
+                <BarbershopItem key={barberShop.id}barbershop={barberShop}/>
+              ))}
+            </div>
+
+
+            
+
       
 
     </div>
