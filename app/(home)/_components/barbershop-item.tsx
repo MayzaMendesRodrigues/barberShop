@@ -3,12 +3,13 @@
 import { Badge } from "@/app/_components/ui/badge";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
-import { BarberShop } from "@prisma/client";
+import { Barbershop } from "@prisma/client";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 interface BarbarShopItemProps {
-    barbershop: BarberShop;
+    barbershop: Barbershop;
 }
 
 const BarbershopItem = ({barbershop} : BarbarShopItemProps ) => {
