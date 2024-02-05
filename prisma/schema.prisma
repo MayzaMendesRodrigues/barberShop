@@ -11,39 +11,81 @@ datasource db {
 }
 
 model User {
-  id      String    @id @default(uuid())
-  name    String
-  Booking Booking[]
+  id            String    @id @default(uuid())
+  name          String
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  bookings Booking[]
 }
 
-model BarberShop {
-  id       String    @id @default(uuid())
+model Barbershop {
+  id       String @id @default(uuid())
   name     String
-  address  String // Corrigido de 'adress' para 'address'
+  address  String
   imageUrl String
-  Service  Service[]
-  Booking  Booking[]
+
+  services Service[]
+  bookings Booking[]
 }
 
 model Service {
-  id           String     @id @default(uuid()) // Corrigido 'uui()' para 'uuid()'
-  name         String
-  price        Decimal    @db.Decimal(10, 2) // Ajustado para 'Float' para exemplo, ajuste conforme necessário
-  barbershopId String
-  barbershop   BarberShop @relation(fields: [barbershopId], references: [id])
-  description  String
-  Booking      Booking[]
-  imageUrl     String ?
+  id          String     @id @default(uuid())
+  name        String
+  price       Decimal    @db.Decimal(10, 2)
+  barbershoId String
+  barbershop  Barbershop @relation(fields: [barbershoId], references: [id])
+  description String
+  imageUrl    String?
+
+  bookings Booking[]
 }
 
 model Booking {
-  id           String     @id @default(uuid()) // Corrigido para incluir '@default(uuid())'
+  id           String     @id @default(uuid())
   userId       String
-  user         User       @relation(fields: [userId], references: [id]) // Corrigido 'User' para 'user' e 'UserId' para 'userId'
+  user         User       @relation(fields: [userId], references: [id])
   serviceId    String
   service      Service    @relation(fields: [serviceId], references: [id])
-  barberShopId String
-  barbershop   BarberShop @relation(fields: [barberShopId], references: [id])
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   date         DateTime
-  status       String
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
