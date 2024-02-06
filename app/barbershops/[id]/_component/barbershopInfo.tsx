@@ -1,12 +1,12 @@
 "use client"
 
-import { ChevronLeftCircleIcon, MapPinIcon, MenuIcon, Sheet, StarIcon } from "lucide-react";
+import { ChevronLeftCircleIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/app/_components/ui/button";
 import { Barbershop } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { SheetContent, SheetTrigger } from "@/app/_components/ui/sheet";
 import SideMenu from "@/app/_components/side-menu";
+import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet";
 
 
 interface BarbershopInfoProps {
@@ -18,7 +18,7 @@ const BarbershopInfo = ({barbershop}: BarbershopInfoProps) => {
 
     const router = useRouter();
     const handleBackClick = () => {
-        router.back();
+        router.replace("/");
     }
 
     return ( 
@@ -27,23 +27,18 @@ const BarbershopInfo = ({barbershop}: BarbershopInfoProps) => {
             <Button onClick={handleBackClick} size="icon" variant="outline" className="z-50 absolute top-4 left-4">
                 <ChevronLeftCircleIcon/>
             </Button>
-            {/*
-             <Sheet>
-                <SheetTrigger>
-                <Button size="icon" variant="outline" className="z-50 absolute top-4 right-4">
-                <MenuIcon/>
-            </Button>
-                </SheetTrigger>
-                <SheetContent className="p-0">
-                   <SideMenu/>
+            
+            <Sheet>
+                <SheetTrigger  asChild>
+                    <Button size="icon" variant="outline" className="z-50 absolute top-4 right-4" >
+                        <MenuIcon/>
 
-                </SheetContent>
-    </Sheet> */}
+                    </Button>
+                </SheetTrigger>
+            </Sheet>
             
 
            
-
-          
 
 
             <Image 
@@ -57,7 +52,7 @@ const BarbershopInfo = ({barbershop}: BarbershopInfoProps) => {
             />
         </div>
 
-        <div className="px-5 pt-3 pb-6 border-solid border-b border-primary">
+        <div className="px-5 pt-3 pb-6 border-solid border-b border-secondary">
         <h1 className="text-xl font-bold">{barbershop.name}</h1>
         <div className="flex items-center gap-2 mt-2">
         <MapPinIcon className="text-primary" size={18}/>
