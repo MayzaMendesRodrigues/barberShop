@@ -45,13 +45,13 @@ const {data} = useSession()
         return
     }
     const refreshAvalibleHours = async () => {
-        const _dayBookings = await getDayBooking(date)
+        const _dayBookings = await getDayBooking(barbershop.id, date)
 
         setDayBooking(_dayBookings)
     };
 
     refreshAvalibleHours()
-  }, [date])
+  }, [barbershop.id, date])
 
   
 
@@ -96,7 +96,7 @@ const {data} = useSession()
              } ) ,
             action:{
                 label: "Visualizar",
-                onClick: () => router.push("/booking")
+                onClick: () => router.push("/bookings")
             }
         })
         } catch (error) {
