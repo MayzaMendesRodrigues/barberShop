@@ -59,7 +59,10 @@ const BookingsPage = async () => {
 
         <div className="px-5 py-6">
             <h1 className="text-xl font-bold">Agendamento</h1>
-            <h2 className="text-sm uppercase text-gray-400 font-bold mt-3 mb-3">Confirmados</h2>
+
+                <h2 className="text-sm uppercase text-gray-400 font-bold mt-3 mb-3">Confirmados</h2>
+
+            
            <div className="flex gap-3 flex-col">
            {confirmedBookings.map((booking) => (
                 <BookingItem key={booking.id} booking={booking} />
