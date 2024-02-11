@@ -2,7 +2,7 @@
 import { db } from "@/app/_lib/prisma"
 import { endOfDay, startOfDay } from "date-fns"
 
-export const getDayBooking = async ( barbershopId: String ,date: Date) => {
+export const getDayBooking = async ( barbershopId: string ,date: Date) => {
     const bookings = await db.booking.findMany ({
         where: {
             barbershopId,
