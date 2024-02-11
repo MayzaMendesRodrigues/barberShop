@@ -11,6 +11,7 @@ import { cancelBooking } from '../_actions/cancel-booking';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog';
 
 
 
@@ -164,18 +165,38 @@ const BookingItem = ({booking} : BookingItemProps) => {
                             Voltar
                         </Button>
                         </SheetClose>
-                        <Button 
+                        
+
+
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                            <Button 
                         disabled={!isBookingConfirmed || isDeleteLoading}
                         onClick={handleCancelClick}
                          className='w-full' 
                         variant="destructive">
 
-                            {isDeleteLoading && (
+                           
+                            Cancelar reserva
+                        </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent className='w-full'>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Cancelar Reserva</AlertDialogTitle>
+                                    <AlertDialogDescription>Uma vez cancelada nao seja possivel reverter esta situacao</AlertDialogDescription>
+
+                                </AlertDialogHeader>
+                                <AlertDialogFooter className='flex-row gap-3' >
+                                    <AlertDialogCancel className='w-full mt-0'>Voltar</AlertDialogCancel>
+                                    <AlertDialogAction disabled ={isDeleteLoading} className='w-full' onClick={handleCancelClick}>Confirmar
+                                    {isDeleteLoading && (
                                 <Loader2 
                                 className='mr-2 h-4 w-4 animate-spin'/> 
                             )}
-                            Cancelar reserva
-                        </Button>
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
                         
                     </SheetFooter>
 </div>

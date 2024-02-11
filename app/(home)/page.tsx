@@ -38,7 +38,9 @@ const [barbershops, confirmedBookings] = await Promise.all ([
     <div>
         <Header/>
         <div className='px-5 pt-5'>
-        <h2 className='text-xl font-bold'>Ola, Miguel!</h2>
+        <h2 className='text-xl font-bold'>
+          {session?.user ? `Ola, ${session.user.name?.split(" ")[0]}!` : "Ola vamos agendar um corte hoje?"}
+        </h2>
         <p className='capitalize text-sm'>{format(new Date (), "EEEE', 'dd 'de' yyyy", {
             locale:ptBR,
         })}</p>

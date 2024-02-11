@@ -5,7 +5,6 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { db } from "../_lib/prisma";
 import BookingItem from "../_components/booking-item";
-import { isFuture, isPast } from "date-fns";
 
 const BookingsPage = async () => {
     const session = await getServerSession(authOptions)
@@ -51,16 +50,17 @@ const BookingsPage = async () => {
 
 
 
-
-
     return (
         <>
         <Header/>
 
         <div className="px-5 py-6">
-            <h1 className="text-xl font-bold">Agendamento</h1>
+            <h1 className="text-xl font-bold mb-6">Agendamento</h1>
 
-                <h2 className="text-sm uppercase text-gray-400 font-bold mt-3 mb-3">Confirmados</h2>
+{confirmedBookings.length === 0 &&  (
+    <>
+                    <h2 className="text-sm uppercase text-gray-400 font-bold mt-3 mb-3">Confirmados</h2>
+
 
             
            <div className="flex gap-3 flex-col">
@@ -68,18 +68,23 @@ const BookingsPage = async () => {
                 <BookingItem key={booking.id} booking={booking} />
             ))}
            </div>
+           </>
+)}
 
+           {finishedBookings.length > 0 && (
+<>
            <h2 className="text-sm uppercase text-gray-400 font-bold mt-3 mb-3">Finalizados</h2>
            <div className="flex gap-3 flex-col">
            {finishedBookings.map((booking) => (
                 <BookingItem key={booking.id} booking={booking} />
             ))}
            </div>
-        </div>
         </>
-    )
+    )}
 
-}
+</div>
+</>
+    )}
  
 export default BookingsPage;
 
