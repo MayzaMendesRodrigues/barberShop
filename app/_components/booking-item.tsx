@@ -39,7 +39,7 @@ const BookingItem = ({booking} : BookingItemProps) => {
         }catch (error) {
         console.error(error)
         } finally {
-            isDeleteLoading(false)
+            setIsDeleteLoading(false)
         }
     }
     return ( 
